@@ -39,7 +39,7 @@ cd $node_directory
 sudo dotnet publish -c $configuration -r $os_platform-$arch -v m -o $build_directory/StratisCore.UI/daemon
 
 echo $log_prefix chmoding the xds file
-sudo chmod +x $build_directory/StratisCore.UI/daemon/blockcore*
+sudo chmod +x $build_directory/StratisCore.UI/daemon/x1*
 
 # node Build
 cd $build_directory/StratisCore.UI
