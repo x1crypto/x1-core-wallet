@@ -107,7 +107,7 @@ app.on('ready', () => {
     if (sidechain && !nodaemon) {
       startDaemon("Stratis.SidechainD");
     } else if (!nodaemon) {
-      startDaemon("xd1")
+      startDaemon("x1d")
     }
   }
   createTray();
