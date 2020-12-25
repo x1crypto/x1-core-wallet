@@ -8,8 +8,8 @@ describe('stratis-core App', () => {
     page = new AngularElectronPage();
   });
 
-  it('Page title should be XDS Core Wallet', () => {
+  it('Page title should be X1 Core Wallet', () => {
     page.navigateTo('/');
-    expect(page.getTitle()).toEqual('XDS Core Wallet');
+    expect(page.getTitle()).toEqual('X1 Core Wallet');
   });
 });

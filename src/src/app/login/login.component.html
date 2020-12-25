@@ -3,8 +3,8 @@
 
   <div class="row justify-content-center">
     <div class="col-12 bg-dark pt-2 pb-2 border-bottom">
-      <img src="./assets/images/logo.png" height="25" width="25" class="float-left mt-2"/> <h4 class="float-left mt-2"><b>&nbsp;XDS Core Wallet</b></h4>
-      <h4 class="float-right mt-2">Secure Anonymous Messenger</h4>
+      <img src="./assets/images/logo.png" height="25" width="25" class="float-left mt-2"/> <h4 class="float-left mt-2"><b>&nbsp;X1 Core Wallet</b></h4>
+      <h4 class="float-right mt-2">x1crypto.com</h4>
     </div>
   </div>
   <div class="row justify-content-center">
@@ -26,7 +26,7 @@
           </form>
 
           <div *ngIf="hasWallet">
-            <button type="submit" class="btn btn-block btn-lg btn-primary" [disabled]="!openWalletForm.valid || isDecrypting" (click)="onDecryptClicked()">LOGIN</button>
+            <button type="submit" class="btn btn-block btn-lg btn-primary" [disabled]="!openWalletForm.valid || isDecrypting" (click)="onDecryptClicked()">Unlock</button>
           </div>
           <div class="row d-flex justify-content-center mt-3">
             <button [disabled]="isDecrypting" type="button" class="btn btn-block btn-link text-white" (click)="onCreateClicked()">Create or restore a wallet</button>

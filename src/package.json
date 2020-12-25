@@ -1,26 +1,20 @@
 {
-  "name": "XDS-core",
-  "description": "XDS Core Wallet",
-  "version": "1.0.10",
+  "name": "x1-core-wallet",
+  "description": "X1 Core Wallet",
+  "version": "1.1.12",
   "author": {
-    "name": "XDS",
+    "name": "The X1 Developers & previous github contributors",
     "email": "cryptohunter@protonmail.com"
   },
   "license": "MIT",
-  "homepage": "https://trustaking.com",
+  "homepage": "x1crypto.com",
   "keywords": [
     "trustaking.com",
-    "fullnode",
-    "ui",
-    "XDS",
-    "XDSplatform",
-    "core",
-    "bitcoin",
-    "angular",
-    "electron",
-    "typescript",
-    "scss",
-    "bootstrap"
+    "truststaking",
+    "thecrypt0hunter",
+    "staking",
+    "X1",
+    "Wallet"
   ],
   "main": "main.js",
   "private": true,

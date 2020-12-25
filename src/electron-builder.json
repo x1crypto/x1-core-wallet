@@ -1,6 +1,6 @@
 {
-  "appId": "com.xds.core",
-  "productName": "XDS Core Wallet",
+  "appId": "com.x1crypto.x1-core-wallet",
+  "productName": "X1 Core Wallet",
   "publish": null,
   "directories": {
     "output": "app-builds"
@@ -32,8 +32,8 @@
     "target": [
       "AppImage"
     ],
-    "synopsis": "XDS Core Wallet.",
-    "category": "Utility",
+    "synopsis": "X1 Core Wallet",
+    "category": "Wallet",
     "artifactName": "${productName}-v${version}-${os}-${arch}.${ext}"
   },
   "mac": {

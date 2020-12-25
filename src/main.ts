@@ -237,7 +237,7 @@ function createTray() {
       }
     }
   ]);
-  systemTray.setToolTip('XDS Core Wallet');
+  systemTray.setToolTip('X1 Core Wallet');
   systemTray.setContextMenu(contextMenu);
   systemTray.on('click', function() {
     if (!mainWindow.isVisible()) {
