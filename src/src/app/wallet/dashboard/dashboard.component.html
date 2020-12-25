@@ -6,7 +6,7 @@
         <div [class.col-6]="(hasBalance && !sidechainEnabled)" [class.col-12]="!(hasBalance && !sidechainEnabled)">
           <div class="card" style="min-height: 175px">
             <div class="card-body">
-              <h3 class="title-bottom-border">BALANCE</h3>
+              <h3 class="title-bottom-border">Wallet Balance</h3>
               <h1>
                 {{ (confirmedBalance | coinNotation) || (0 | coinNotation) }}
                 <span class="text-uppercase"> {{ coinUnit }}</span><span class="text-lightblue" style="font-size: 70%;"></span>
@@ -113,9 +113,9 @@
                 <div class="col-12" *ngFor="let transaction of (transactionArray ? transactionArray.slice(0,8): []); let i=index">
                   <div class="row rows">
                     <div class="col text-lightblue row-column">
-                      <span class="text-uppercase">
-                        <span class="bubble bg-warning" *ngIf="!transaction.transactionConfirmedInBlock"></span>
-                        <span class="bubble bg-success" *ngIf="transaction.transactionConfirmedInBlock"></span>
+                      <span>
+                        <span style="margin-right: 5px;" class="bubble bg-warning" *ngIf="!transaction.transactionConfirmedInBlock"></span>
+                        <span style="margin-right: 5px;" class="bubble bg-success" *ngIf="transaction.transactionConfirmedInBlock"></span>
                         {{ transaction.transactionType }}
                       </span>
                     </div>
