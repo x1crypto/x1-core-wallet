@@ -211,7 +211,7 @@ function startDaemon(daemonName) {
   });
 
   daemonProcess.stdout.on('data', (data) => {
-    writeLog(`XDS: ${data}`);
+    writeLog(`X1: ${data}`);
   });
 }
 

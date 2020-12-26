@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Blockcore.Features.NodeHost</name>
+    </assembly>
+    <members>
+        <member name="M:Blockcore.Features.NodeHost.CertificateStore.TryGet(System.String,System.Security.Cryptography.X509Certificates.X509Certificate2@)">
+            <inheritdoc />
+        </member>
+        <member name="T:Blockcore.Features.NodeHost.Events.EventSubscriptionService">
+            <summary>
+            This class subscribes to Blockcore.EventBus.EventBus messages and proxy's them
+            to Web Socket messages.
+            </summary>
+        </member>
+        <member name="M:Blockcore.Features.NodeHost.Events.EventSubscriptionService.UnsubscribeAll(System.String)">
+            <summary>
+            Call to unsubscribe to all events registered on this consumer Id.
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="T:Blockcore.Features.NodeHost.Hubs.NodeHub">
+            <summary>
+            Node Hub can be used to perform many tasks on the node, including the majority of features available in the REST API.
+            </summary>
+        </member>
+        <member name="M:Blockcore.Features.NodeHost.Hubs.NodeHub.Echo(System.String)">
+            <summary>
+            Basic echo method that can be used to verify connection.
+            </summary>
+            <param name="message">Any message to echo back.</param>
+            <returns>Returns the same message supplied.</returns>
+        </member>
+        <member name="T:Blockcore.Features.NodeHost.ICertificateStore">
+            <summary>
+            An interface providing operations on certificate repositories.
+            </summary>
+        </member>
+        <member name="M:Blockcore.Features.NodeHost.ICertificateStore.TryGet(System.String,System.Security.Cryptography.X509Certificates.X509Certificate2@)">
+            <summary>
+            Tries to retrieve a certificate from the file system.
+            </summary>
+            <param name="filePath">The full path of the certificate file.</param>
+            <param name="certificate">The certificate, if found.</param>
+            <returns>A value indicating whether or not the certificate has been found at the specified location.</returns>
+        </member>
+        <member name="T:Blockcore.Features.NodeHost.LoggingActionFilter">
+            <summary>
+            An asynchronous action filter whose role is to log details from the Http requests to the API.
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.Filters.IAsyncActionFilter" />
+        </member>
+        <member name="M:Blockcore.Features.NodeHost.MvcBuilderExtensions.AddControllers(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Collections.Generic.IEnumerable{Blockcore.Builder.Feature.IFullNodeFeature},Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Identifies the assemblies to include for controller discovery.
+            </summary>
+            <param name="builder">The builder</param>
+            <param name="features">The selected features to include the assemblies of.</param>
+            <param name="serviceCollection">The full node services.</param>
+            <returns>The Mvc builder</returns>
+        </member>
+        <member name="T:Blockcore.Features.NodeHost.NoCacheMiddleware">
+            <summary>
+            Middleware to set the response Cache-Control to no-cache.
+            </summary>
+        </member>
+        <member name="T:Blockcore.Features.NodeHost.NodeHostFeature">
+            <summary>
+            Provides an Api to the full node
+            </summary>
+        </member>
+        <member name="F:Blockcore.Features.NodeHost.NodeHostFeature.NodeHostStopTimeoutSeconds">
+            <summary>How long we are willing to wait for the NodeHost to stop.</summary>
+        </member>
+        <member name="M:Blockcore.Features.NodeHost.NodeHostFeature.PrintHelp(Blockcore.Networks.Network)">
+            <summary>
+            Prints command-line help.
+            </summary>
+            <param name="network">The network to extract values from.</param>
+        </member>
+        <member name="M:Blockcore.Features.NodeHost.NodeHostFeature.BuildDefaultConfigurationFile(System.Text.StringBuilder,Blockcore.Networks.Network)">
+            <summary>
+            Get the default configuration.
+            </summary>
+            <param name="builder">The string builder to add the settings to.</param>
+            <param name="network">The network to base the defaults off.</param>
+        </member>
+        <member name="M:Blockcore.Features.NodeHost.NodeHostFeature.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="T:Blockcore.Features.NodeHost.NodeHostFeatureExtension">
+            <summary>
+            A class providing extension methods for <see cref="T:Blockcore.Builder.IFullNodeBuilder"/>.
+            </summary>
+        </member>
+        <member name="T:Blockcore.Features.NodeHost.NodeHostSettings">
+            <summary>
+            Configuration related to the API interface.
+            </summary>
+        </member>
+        <member name="F:Blockcore.Features.NodeHost.NodeHostSettings.DefaultApiHost">
+            <summary>The default port used by the API when the node runs on the network.</summary>
+        </member>
+        <member name="F:Blockcore.Features.NodeHost.NodeHostSettings.logger">
+            <summary>Instance logger.</summary>
+        </member>
+        <member name="P:Blockcore.Features.NodeHost.NodeHostSettings.ApiUri">
+            <summary>URI to node's API interface.</summary>
+        </member>
+        <member name="P:Blockcore.Features.NodeHost.NodeHostSettings.ApiPort">
+            <summary>Port of node's API interface.</summary>
+        </member>
+        <member name="P:Blockcore.Features.NodeHost.NodeHostSettings.EnableWS">
+            <summary>
+            If true then the node will add and start the Web Socket feature. This should never be enabled if node is accessible to the public.
+            </summary>
+        </member>
+        <member name="P:Blockcore.Features.NodeHost.NodeHostSettings.EnableUI">
+            <summary>
+            If true the node will host a UI available in the NodeHost. This should never be enabled if node is accessible to the public.
+            </summary>
+        </member>
+        <member name="P:Blockcore.Features.NodeHost.NodeHostSettings.EnableAPI">
+            <summary>
+            If true the node will host a REST API in the NodeHost. This should never be enabled if node is accessible to the public.
+            </summary>
+        </member>
+        <member name="P:Blockcore.Features.NodeHost.NodeHostSettings.EnableAuth">
+            <summary>
+            If true will require authentication on all sensitive APIs. Some APIs will be public available.
+            </summary>
+        </member>
+        <member name="P:Blockcore.Features.NodeHost.NodeHostSettings.HttpsCertificateFilePath">
+            <summary>
+            The HTTPS certificate file path.
+            </summary>
+            <remarks>
+            Password protected certificates are not supported. On MacOs, only p12 certificates can be used without password.
+            Please refer to .Net Core documentation for usage: <seealso cref="!:https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.x509certificates.x509certificate2.-ctor?view=netcore-2.1#System_Security_Cryptography_X509Certificates_X509Certificate2__ctor_System_Byte___" />.
+            </remarks>
+        </member>
+        <member name="P:Blockcore.Features.NodeHost.NodeHostSettings.UseHttps">
+            <summary>Use HTTPS or not.</summary>
+        </member>
+        <member name="P:Blockcore.Features.NodeHost.NodeHostSettings.ApiTitle">
+            <summary>Use title from agent</summary>
+        </member>
+        <member name="M:Blockcore.Features.NodeHost.NodeHostSettings.#ctor(Blockcore.Configuration.NodeSettings)">
+            <summary>
+            Initializes an instance of the object from the node configuration.
+            </summary>
+            <param name="nodeSettings">The node configuration.</param>
+        </member>
+        <member name="M:Blockcore.Features.NodeHost.NodeHostSettings.PrintHelp(Blockcore.Networks.Network)">
+            <summary>Prints the help information on how to configure the API settings to the logger.</summary>
+            <param name="network">The network to use.</param>
+        </member>
+        <member name="M:Blockcore.Features.NodeHost.NodeHostSettings.BuildDefaultConfigurationFile(System.Text.StringBuilder,Blockcore.Networks.Network)">
+            <summary>
+            Get the default configuration.
+            </summary>
+            <param name="builder">The string builder to add the settings to.</param>
+            <param name="network">The network to base the defaults off.</param>
+        </member>
+        <member name="T:Blockcore.Features.NodeHost.EditorRCLConfigureOptions">
+            <summary>
+            This class will allow to read the wwwroot folder
+            which has been set ad an embeded folder in to the dll (in the project file)
+            </summary>
+        </member>
+        <member name="T:Blockcore.Features.NodeHost.SwaggerApiDocumentationScaffolder">
+            <summary>
+            Utility class that adds XML documentation references to the API
+            </summary>
+        </member>
+        <member name="M:Blockcore.Features.NodeHost.SwaggerApiDocumentationScaffolder.Scaffold(Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions)">
+            <summary>
+            Scaffolds the folder to obtain documentation related to Controllers.
+            </summary>
+            <param name="options">The options.</param>
+        </member>
+    </members>
+</doc>

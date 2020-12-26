@@ -16,7 +16,7 @@ $env:plat = "win32"
 $env:app_output_name = "app"
 
 Set-Location $env:BUILD_FOLDER
-Remove-Item $env:BUILD_FOLDER/StratisCore.UI/app-builds/* -Recurse
+Remove-Item $env:BUILD_FOLDER/src/app-builds/* -Recurse
 
 Write-Host "Installing dependencies" -foregroundcolor "magenta"     
 Write-Host "--> git submodule" -foregroundcolor "magenta"
@@ -24,7 +24,7 @@ Write-Host "--> git submodule" -foregroundcolor "magenta"
 git submodule update --init --recursive
 
 Write-Host "--> npm install" -foregroundcolor "magenta"
-Set-Location $env:BUILD_FOLDER/StratisCore.UI
+Set-Location $env:BUILD_FOLDER/src
 npm install --verbose
 
 Write-Host "FINISHED restoring dotnet and npm packages" -foregroundcolor "magenta"
@@ -44,15 +44,15 @@ Write-Host "*--------------------------------*" -foregroundcolor "magenta"
 if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode) }
     
 Write-Host "running 'dotnet publish'" -foregroundcolor "magenta"
-Set-Location $env:BUILD_FOLDER/xds-blockcore-experimental/src/Networks/Xds/Xdsd
-dotnet publish -c $env:configuration -v m -r $env:win_runtime -o $env:BUILD_FOLDER\StratisCore.UI\daemon
+Set-Location $env:BUILD_FOLDER/x1-blockcore/src/X1/X1Daemon
+dotnet publish -c $env:configuration -v m -r $env:win_runtime -o $env:BUILD_FOLDER\src\daemon
 if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode)  }
    
-Write-Host "Building and packaging StratisCore.UI" -foregroundcolor "magenta"
-Set-Location $env:BUILD_FOLDER/StratisCore.UI
+Write-Host "Building and packaging src" -foregroundcolor "magenta"
+Set-Location $env:BUILD_FOLDER/src
 npm run package:windows64
 if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode)  }     
-Write-Host "[$env:configuration][$env:win_runtime] FINISHED StratisCore.UI packaging" -foregroundcolor "magenta"
+Write-Host "[$env:configuration][$env:win_runtime] FINISHED src packaging" -foregroundcolor "magenta"
 
 Set-Location app-builds
 # replace the spaces in the name with a dot as CI system have trouble handling spaces in names.

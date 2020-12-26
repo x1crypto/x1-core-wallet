@@ -1,0 +1,211 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>X1.X1Network</name>
+    </assembly>
+    <members>
+        <member name="T:X1.X1Network.Consensus.X1ConsensusOptions">
+            <inheritdoc />
+        </member>
+        <member name="F:X1.X1Network.Consensus.X1ConsensusOptions.PosPowRatchetIsActiveHeightTestNet">
+            <summary>
+            The block height (inclusive), where the PosPowRatchet algorithm starts, on TestNet.
+            </summary>
+        </member>
+        <member name="F:X1.X1Network.Consensus.X1ConsensusOptions.PosPowRatchetIsActiveHeightMainNet">
+            <summary>
+            The block height (inclusive), where the PosPowRatchet algorithm starts, on MainNet.
+            </summary>
+        </member>
+        <member name="M:X1.X1Network.Consensus.X1ConsensusOptions.GetStakeMinConfirmations(System.Int32,Blockcore.Networks.Network)">
+            <inheritdoc />
+        </member>
+        <member name="M:X1.X1Network.Consensus.X1ConsensusOptions.IsAlgorithmAllowed(System.Boolean,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:X1.X1Network.Consensus.X1ConsensusOptions.IsPosPowRatchetActiveAtHeight(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:X1.X1Network.Deployments.X1BIP9Deployments.#ctor">
+            <summary>
+            Constructs the BIP9 deployments array.
+            </summary>
+        </member>
+        <member name="M:X1.X1Network.Deployments.X1BIP9Deployments.GetFlags(System.Int32)">
+            <summary>
+            Gets the deployment flags to set when the deployment activates.
+            </summary>
+            <param Command="deployment">The deployment number.</param>
+            <returns>The deployment flags.</returns>
+        </member>
+        <member name="T:X1.X1Network.Policies.X1StandardScriptsRegistry">
+            <summary>
+            X1-specific standard transaction definitions.
+            </summary>
+        </member>
+        <member name="T:X1.X1Network.Rules.X1CheckFeeMempoolRule">
+            <summary>
+            Validates the transaction fee is valid, so that the transaction can be mined eventually.
+            Checks whether the fee meets minimum fee, free transactions have sufficient priority, and absurdly high fees.
+            </summary>
+        </member>
+        <member name="T:X1.X1Network.Rules.X1EmptyScriptSigMempoolRule">
+            <summary>
+            Checks if transactions match the white-listing criteria. This rule and <see cref="T:X1.X1Network.Rules.X1OutputNotWhitelistedRule"/> must correspond.
+            </summary>
+        </member>
+        <member name="T:X1.X1Network.Rules.X1EmptyScriptSigRule">
+            <summary>
+            Checks <see cref="T:X1.X1Network.X1Main"/> transaction inputs have empty ScriptSig fields.
+            </summary>
+        </member>
+        <member name="T:X1.X1Network.Rules.X1HeaderVersionRule">
+            <summary>
+            Checks if <see cref="T:X1.X1Network.X1Main"/> network block's header has a valid block version.
+            </summary>
+        </member>
+        <member name="M:X1.X1Network.Rules.X1HeaderVersionRule.Run(Blockcore.Consensus.Rules.RuleContext)">
+            <inheritdoc />
+            <exception cref="P:Blockcore.Consensus.ConsensusErrors.BadVersion">Thrown if block's version is outdated or otherwise invalid.</exception>
+        </member>
+        <member name="T:X1.X1Network.Rules.X1OutputNotWhitelistedMempoolRule">
+            <summary>
+            Checks if transactions match the white-listing criteria. This rule and <see cref="T:X1.X1Network.Rules.X1OutputNotWhitelistedRule"/> must correspond.
+            </summary>
+        </member>
+        <member name="T:X1.X1Network.Rules.X1OutputNotWhitelistedRule">
+            <summary>
+            Checks if transactions match the white-listing criteria. This rule and <see cref="T:X1.X1Network.Rules.X1OutputNotWhitelistedMempoolRule"/> must correspond.
+            </summary>
+        </member>
+        <member name="M:X1.X1Network.Rules.X1PosCoinviewRule.GetProofOfWorkReward(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:X1.X1Network.Rules.X1PosCoinviewRule.GetProofOfStakeReward(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:X1.X1Network.Rules.X1PosCoinviewRule.CheckMaturity(Blockcore.Utilities.UnspentOutput,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="T:X1.X1Network.Rules.X1PosCoinviewRuleTestNet">
+            <summary>
+            The XDSTest network uses a pre-mine to catch up with the coin supply
+            on XDSMain (XDSTest was created almost a year later).
+            </summary>
+        </member>
+        <member name="M:X1.X1Network.Rules.X1PosCoinviewRuleTestNet.GetProofOfWorkReward(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:X1.X1Network.Rules.X1PosCoinviewRuleTestNet.GetProofOfStakeReward(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:X1.X1Network.Rules.X1PosCoinviewRuleTestNet.CheckMaturity(Blockcore.Utilities.UnspentOutput,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:X1.X1Network.Rules.X1PosPowRatchetRule.Initialize">
+            <inheritdoc />
+        </member>
+        <member name="M:X1.X1Network.Rules.X1PosPowRatchetRule.GetHeightOfBlockToValidateSafe(Blockcore.Consensus.Rules.RuleContext)">
+            <summary>
+            From <see cref="T:Blockcore.Features.Consensus.Rules.CommonRules.CoinbaseHeightRule"/>. Very safe way to determine the true
+            height of the block being checked.
+            </summary>
+            <returns>The height in the chain of the block being checked.</returns>
+        </member>
+        <member name="M:X1.X1Network.Rules.X1PosPowRatchetRule.StartWith(System.Byte[],System.Byte[])">
+            <summary>
+            Checks if first <paramref name="subset.Lenght.Lenght"/> entries are equal between two arrays.
+            </summary>
+            <param name="bytes">Main array.</param>
+            <param name="subset">Subset array.</param>
+            <returns><c>true</c> if <paramref name="subset.Lenght.Lenght"/> entries are equal between two arrays. Otherwise <c>false</c>.</returns>
+        </member>
+        <member name="T:X1.X1Network.Rules.X1RequireWitnessMempoolRule">
+            <summary>
+            Checks weather the transaction has witness.
+            </summary>
+        </member>
+        <member name="T:X1.X1Network.Rules.X1RequireWitnessRule">
+            <summary>
+            Checks if all transaction in the block have witness.
+            </summary>
+        </member>
+        <member name="M:X1.X1Network.TODO.MemoryPoolConfiguration.UseSpecialX1Mempool(Blockcore.Builder.IFullNodeBuilder)">
+            <summary>
+            Include the memory pool feature and related services in the full node.
+            </summary>
+            <param name="fullNodeBuilder">Full node builder.</param>
+            <returns>Full node builder.</returns>
+        </member>
+        <member name="T:X1.X1Network.TODO.X1MempoolValidator">
+            <summary>
+            TODO: Check if special mempool is required, e.g. for flat fee handling
+            </summary>
+        </member>
+        <member name="P:X1.X1Network.TODO.X1MempoolValidator.ConsensusOptions">
+            <inheritdoc />
+        </member>
+        <member name="P:X1.X1Network.TODO.X1MempoolValidator.PerformanceCounter">
+            <inheritdoc />
+        </member>
+        <member name="M:X1.X1Network.TODO.X1MempoolValidator.AcceptToMemoryPool(Blockcore.Features.MemoryPool.MempoolValidationState,Blockcore.Consensus.TransactionInfo.Transaction)">
+            <inheritdoc />
+        </member>
+        <member name="M:X1.X1Network.TODO.X1MempoolValidator.AcceptToMemoryPoolWithTime(Blockcore.Features.MemoryPool.MempoolValidationState,Blockcore.Consensus.TransactionInfo.Transaction)">
+            <inheritdoc />
+        </member>
+        <member name="M:X1.X1Network.TODO.X1MempoolValidator.SanityCheck">
+            <inheritdoc />
+        </member>
+        <member name="M:X1.X1Network.TODO.X1MempoolValidator.AcceptToMemoryPoolWorkerAsync(Blockcore.Features.MemoryPool.MempoolValidationState,Blockcore.Consensus.TransactionInfo.Transaction)">
+            <summary>
+            Validates and then adds a transaction to memory pool.
+            </summary>
+            <param name="state">Validation state for creating the validation context.</param>
+            <param name="tx">The transaction to validate.</param>
+        </member>
+        <member name="M:X1.X1Network.TODO.X1MempoolValidator.IsCurrentForFeeEstimation">
+            <summary>
+            Whether chain is currently valid for fee estimation.
+            It should only count for fee estimation if the node is not behind.
+            </summary>
+            <returns>Whether current for fee estimation.</returns>
+        </member>
+        <member name="M:X1.X1Network.TODO.X1MempoolValidator.LimitMempoolSize(System.Int64,System.Int64)">
+            <summary>
+            Trims memory pool to a new size.
+            First expires transactions older than age.
+            Then trims memory pool to limit if necessary.
+            </summary>
+            <param name="limit">New size.</param>
+            <param name="age">AAge to use for calculating expired transactions.</param>
+        </member>
+        <member name="T:X1.X1Network.TODO.X1PreMempoolChecksMempoolRule">
+            <summary>
+            Checks that are done before touching the memory pool.
+            These checks don't need to run under the memory pool lock,
+            but since we run them now in the rules engine, they do.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:X1.X1Network.TODO.X1PreMempoolChecksMempoolRule.CheckStandardTransaction(Blockcore.Features.MemoryPool.MempoolValidationContext)" -->
+        <member name="M:X1.X1Network.TODO.X1PreMempoolChecksMempoolRule.CheckFinalTransaction(Blockcore.Consensus.Chain.ChainIndexer,Blockcore.Utilities.IDateTimeProvider,Blockcore.Consensus.TransactionInfo.Transaction)">
+            <summary>
+            Validates that the transaction is the final transaction with the time rules
+            according to BIP-113 rules.
+            </summary>
+            <param name="chainIndexer">Block chain used for computing time-locking on the transaction.</param>
+            <param name="dateTimeProvider">Provides the current date and time.</param>
+            <param name="tx">The transaction to validate.</param>
+            <returns>Whether the final transaction was valid.</returns>
+            <seealso cref="M:Blockcore.Consensus.TransactionInfo.Transaction.IsFinal(System.DateTimeOffset,System.Int32)"/>
+        </member>
+        <member name="P:X1.X1Network.X1Main.AbsoluteMinTxFee">
+            <summary>
+                An absolute (flat) minimum fee per transaction, independent of the transaction
+                size in bytes or weight. Transactions with a lower fees will be rejected,
+                transactions with equal or higher fees are allowed. This property
+                Will not be used if the value is null.
+            </summary>
+        </member>
+    </members>
+</doc>

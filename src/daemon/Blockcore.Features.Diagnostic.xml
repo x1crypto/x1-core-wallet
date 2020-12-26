@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Blockcore.Features.Diagnostic</name>
+    </assembly>
+    <members>
+        <member name="T:Blockcore.Features.Diagnostic.Controllers.DiagnosticController">
+            <summary>
+            Controller providing diagnostic operations on fullnode.
+            </summary>
+        </member>
+        <member name="M:Blockcore.Features.Diagnostic.Controllers.DiagnosticController.GetConnectedPeersInfo">
+            <summary>
+            Returns the connected peers with some information
+            </summary>
+        </member>
+        <member name="M:Blockcore.Features.Diagnostic.Controllers.DiagnosticController.GetStatus">
+            <summary>
+            Gets the Diagnostic Feature status.
+            </summary>
+            <returns>The Diagnostic Feature status</returns>
+        </member>
+        <member name="M:Blockcore.Features.Diagnostic.Controllers.DiagnosticController.GetPeerStatistics(System.Boolean)">
+            <summary>
+            Returns the connected peers with some statistical information.
+            </summary>
+            <param name="connectedOnly">if set to <c>true</c> returns statistics related to connected peers only.</param>
+            <returns>List of peer statistics</returns>
+        </member>
+        <member name="M:Blockcore.Features.Diagnostic.Controllers.DiagnosticController.StartCollectingPeerStatistics">
+            <summary>
+            Starts collecting peers statistics.
+            </summary>
+            <returns>Operation result.</returns>
+        </member>
+        <member name="M:Blockcore.Features.Diagnostic.Controllers.DiagnosticController.StopCollectingPeerStatistics">
+            <summary>
+            Stops collecting peers statistics.
+            Stopping a running peer statistic collecotr doesn't clear obtained results.
+            </summary>
+            <returns>Operation result.</returns>
+        </member>
+        <member name="T:Blockcore.Features.Diagnostic.DiagnosticFeature">
+            <summary>
+            Feature for diagnostic purpose that allow to have insights about internal details of the fullnode while it's running.
+            <para>In order to collect internal details, this feature makes use of Signals to register to internal events published
+            by the full node and uses reflection whenever it needs to access information not meant to be publicly exposed.</para>
+            <para>It exposes <see cref="T:Blockcore.Features.Diagnostic.Controllers.DiagnosticController"/>, an API controller that allow to query for information using the API feature, when available.</para>
+            </summary>
+            <seealso cref="T:Blockcore.Builder.Feature.FullNodeFeature" />
+        </member>
+        <member name="M:Blockcore.Features.Diagnostic.DiagnosticFeature.PrintHelp(Blockcore.Networks.Network)">
+            <summary>
+            Prints command-line help.
+            </summary>
+            <param name="network">The network to extract values from.</param>
+        </member>
+        <member name="T:Blockcore.Features.Diagnostic.DiagnosticSettings">
+            <summary>
+            Configuration related to the API interface.
+            </summary>
+        </member>
+        <member name="F:Blockcore.Features.Diagnostic.DiagnosticSettings.DefaultPeersStatisticsCollectorEnabled">
+            <summary>The default value for peers statistics collector.</summary>
+        </member>
+        <member name="F:Blockcore.Features.Diagnostic.DiagnosticSettings.DefaultMaxPeerLoggedEvents">
+            <summary>The default value for maximum peers logged events.</summary>
+        </member>
+        <member name="F:Blockcore.Features.Diagnostic.DiagnosticSettings.logger">
+            <summary>Instance logger.</summary>
+        </member>
+        <member name="P:Blockcore.Features.Diagnostic.DiagnosticSettings.PeersStatisticsCollectorEnabled">
+            <summary>
+            Gets or sets a value indicating whether <see cref="T:Blockcore.Features.Diagnostic.PeerDiagnostic.PeerStatisticsCollector"/> starts enabled.
+            </summary>
+            <value>
+              <c>true</c> if <see cref="T:Blockcore.Features.Diagnostic.PeerDiagnostic.PeerStatisticsCollector"/> starts enabled; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Blockcore.Features.Diagnostic.DiagnosticSettings.MaxPeerLoggedEvents">
+            <summary>
+            Gets or sets the maximum peer logged events in <see cref="T:Blockcore.Features.Diagnostic.PeerDiagnostic.PeerStatisticsCollector"/>.
+            </summary>
+            <value>
+            The maximum peer logged events.
+            </value>
+        </member>
+        <member name="M:Blockcore.Features.Diagnostic.DiagnosticSettings.#ctor(Blockcore.Configuration.NodeSettings)">
+            <summary>
+            Initializes an instance of the object from the node configuration.
+            </summary>
+            <param name="nodeSettings">The node configuration.</param>
+        </member>
+        <member name="M:Blockcore.Features.Diagnostic.DiagnosticSettings.PrintHelp(Blockcore.Networks.Network)">
+            <summary>Prints the help information on how to configure the Diagnostic Feature to the logger.</summary>
+            <param name="network">The network to use.</param>
+        </member>
+        <member name="T:Blockcore.Features.Diagnostic.PeerDiagnostic.PeerStatistics">
+            <summary>
+            Holds peer statistics.
+            <see cref="P:Blockcore.Features.Diagnostic.PeerDiagnostic.PeerStatistics.LatestEvents"/> is a limited size string representation of latest peer events, its maximum size is specified in the class constructor maxLoggedEvents
+            </summary>
+        </member>
+        <member name="P:Blockcore.Features.Diagnostic.PeerDiagnostic.PeerStatistics.LatestEvents">
+            <summary>
+            Gets or sets the latest events.
+            </summary>
+            <value>
+            The latest events.
+            </value>
+        </member>
+        <member name="M:Blockcore.Features.Diagnostic.PeerDiagnostic.PeerStatistics.#ctor(System.Int32,System.Net.IPEndPoint)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Blockcore.Features.Diagnostic.PeerDiagnostic.PeerStatistics" /> class.
+            </summary>
+            <param name="maxLoggedEvents">The maximum number of logged events.</param>
+            <param name="peerEndPoint">The peer end point.</param>
+        </member>
+        <member name="T:Blockcore.Features.Diagnostic.PeerDiagnostic.PeerStatisticsCollector">
+            <summary>
+            Subscribe to peer events and keep track of their activities.
+            A summary of peer activities can be obtained using <see cref="T:Blockcore.Features.Diagnostic.Controllers.DiagnosticController"/> actions
+            </summary>
+        </member>
+        <member name="P:Blockcore.Features.Diagnostic.PeerDiagnostic.PeerStatisticsCollector.Enabled">
+            <summary>Track current collecting status, when true Peer Collector is collecting statistics.</summary>
+        </member>
+        <member name="F:Blockcore.Features.Diagnostic.PeerDiagnostic.PeerStatisticsCollector.peersEventsQueue">
+            <summary>Non blocking queue that consume received peer events to generate peer statistics.</summary>
+        </member>
+        <member name="F:Blockcore.Features.Diagnostic.PeerDiagnostic.PeerStatisticsCollector.eventSubscriptions">
+            <summary>Holds a list of event subscriptions.</summary>
+        </member>
+        <member name="T:Blockcore.Features.Diagnostic.Utils.ConcurrentFixedSizeQueue`1">
+            <summary>
+            Non locking Concurrent Fixed Size Queue.
+            This implementation is a lose fixed size queue, because it may sometime exceed the number of items because it wraps a ConcurrentQueue and
+            that is a lock-free concurrent queue implementation, so even if there is a chance it may exceed maxSize, it serves the purpose of circular buffer
+            to hold a limited set of updated elements.
+            </summary>
+            <typeparam name="T">The type of collection items.</typeparam>
+            <seealso cref="T:System.Collections.Generic.IReadOnlyCollection`1" />
+            <seealso cref="T:System.Collections.ICollection" />
+        </member>
+        <member name="M:Blockcore.Features.Diagnostic.Utils.ReflectionExtension.GetPrivatePropertyValue``1(System.Object,System.String)">
+            <summary>
+            Gets the private property value.
+            </summary>
+            <typeparam name="T">Type of the Property</typeparam>
+            <param name="obj">The object.</param>
+            <param name="propertyName">Name of the property.</param>
+            <returns>The property value.</returns>
+        </member>
+        <member name="M:Blockcore.Features.Diagnostic.Utils.ReflectionExtension.SetPrivatePropertyValue``1(System.Object,System.String,``0)">
+            <summary>
+            Sets a private property value for a given object.
+            </summary>
+            <typeparam name="T">Type of the Property</typeparam>
+            <param name="obj">Object from where the Property Value is set</param>
+            <param name="propertyName">Property name as string.</param>
+            <param name="value">Value to set.</param>
+        </member>
+        <member name="M:Blockcore.Features.Diagnostic.Utils.ReflectionExtension.GetPrivateFieldValue``1(System.Object,System.String)">
+            <summary>
+            Using reflection, retrieves the value of private field with this name on the supplied object. If no field is found, returns null.
+            </summary>
+            <typeparam name="T">Type of the Property</typeparam>
+            <param name="obj">Object from where the Property Value is set</param>
+            <param name="fieldName">Name of the field.</param>
+            <returns>The field value</returns>
+        </member>
+    </members>
+</doc>

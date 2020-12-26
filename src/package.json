@@ -1,7 +1,7 @@
 {
-  "name": "XDS-core",
-  "description": "XDS Core Wallet",
-  "version": "1.0.11",
+  "name": "com.x1crypto.x1-core-wallet",
+  "description": "X1 Core Wallet",
+  "version": "1.1.12",
   "author": {
     "name": "The X1 Developers & previous github contributors",
     "email": "cryptohunter@protonmail.com"

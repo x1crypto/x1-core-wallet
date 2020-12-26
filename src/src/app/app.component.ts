@@ -82,6 +82,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public openSupport() {
-    this.electronService.shell.openExternal("https://github.com/sonofsatoshi2020/xds.git");
+    this.electronService.shell.openExternal("http://x1crypto.com");
   }
 }
