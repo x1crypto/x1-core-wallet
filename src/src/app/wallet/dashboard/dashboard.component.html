@@ -1,0 +1,179 @@
+<section id="GUI">
+  <!-- CONTAINER -->
+  <section id="content">
+    <div class="container-fluid">
+      <div class="row mb-2 mt-2">
+        <div [class.col-6]="(hasBalance && !sidechainEnabled)" [class.col-12]="!(hasBalance && !sidechainEnabled)">
+          <div class="card" style="min-height: 175px">
+            <div class="card-body">
+              <h3 class="title-bottom-border">Wallet Balance</h3>
+              <h1>
+                {{ (confirmedBalance | coinNotation) || (0 | coinNotation) }} {{ coinUnit }}
+              </h1>
+
+              <h3>{{ (unconfirmedBalance | coinNotation) || (0 | coinNotation) }} {{ coinUnit }} unconfirmed</h3>
+              <div class="float-right">
+                <a class="btn  btn-success" (click)="openReceiveDialog()">
+                  <i class="icon lnr lnr-arrow-down-circle mr-2"></i>
+                  <span class="text-center text-uppercase">
+                    Receive
+                  </span>
+                </a>
+                <a class="btn btn-success ml-2" (click)="openSendDialog()">
+                  <i class="icon lnr lnr-arrow-up-circle mr-2"></i>
+                  <span class="text-center text-uppercase">Send</span>
+                </a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-6 pl-0" *ngIf="hasBalance && !sidechainEnabled">
+          <div class="card" style="min-height: 175px" *ngIf="!stakingEnabled">
+            <div class="card-body">
+              <h3 class="title-bottom-border">Staking</h3>
+              <form [formGroup]="stakingForm">
+
+                <label class="text-uppercase" for="inputPassword">Please enter your password to start staking.</label>
+                <input type="password" formControlName="walletPassword" class="form-control mb-3" id="inputPassword">
+
+                <button type="button" id="flipcard" class="btn btn-success float-right mt-2 text-uppercase" [disabled]="isStarting || !stakingForm.valid" (click)="startStaking()"><i class="icon lnr lnr-lock mr-2"></i> Start</button>
+                <button type="button" class="btn  btn-success float-right mt-2 text-uppercase mr-2" (click)="openSplitDialog()"><i class="icon lnr lnr-layers mr-2"></i> Split</button>
+              </form>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+          <div id="staking" class="card" style="min-height: 175px" *ngIf="stakingEnabled">
+            <div class="card-body">
+              <h3 class="title-bottom-border">Staking status</h3>
+              <div class="row">
+                <div class="col-12 mb-2">
+                  <div *ngIf="isStarting" class="d-flex justify-content-center">
+                    <img src="./assets/images/loading.svg" width="75" height="75" />
+                  </div>
+                  <div *ngIf="!isStarting">
+                    <div class="row ml-0" style="margin-bottom: 13px;">
+                      <div class="col">
+                        <h3 class="text-uppercase">
+                          AMOUNT
+                        </h3>
+                        <span>{{ stakingWeight | coinNotation | number: '1.0-0' }} {{ coinUnit }}</span>
+                      </div>
+                      <div class="col">
+                        <h3 class="text-uppercase">
+                          IMMATURE
+                        </h3>
+                        <span>{{ awaitingMaturity | coinNotation | number: '1.0-0' }} {{ coinUnit }}</span>
+                      </div>
+                      <div class="col">
+                        <h3 class="text-uppercase">
+                          NETWORK
+                        </h3>
+                        <span>{{ netStakingWeight | coinNotation | number: '1.0-0' }} {{ coinUnit }}</span>
+                      </div>
+                      <div class="col">
+                        <h3 class="text-uppercase">
+                          EST. REWARD
+                        </h3>
+                        <span>{{ dateTime }}</span>
+                      </div>
+                    </div>
+                    <div class="text-center">
+                      <div class="text-success">Staking is active <span class="lnr lnr-checkmark-circle"></span></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 text-right">
+                  <button type="button" class="btn btn-primary text-uppercase mr-2" (click)="openSplitDialog()"><i class="icon lnr lnr-layers mr-2"></i> Split</button>
+                  <button type="button" class="btn btn-danger text-uppercase" [disabled]="isStopping" (click)="stopStaking()"><span class="lnr lnr-cross-circle mr-2"></span> Stop Staking</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="transactionArray">
+        <div class="col-12">
+          <div class="card h-100">
+            <div class="card-body">
+              <h3 class="title-bottom-border">Recent Transactions</h3>
+              <div class="row row-header mr-1 ml-1">
+                <div class="col row-header-column">Type</div>
+                <div class="col row-header-column text-right">Amount</div>
+                <div class="col row-header-column text-center">Date</div>
+                <div class="col row-header-column text-right">Details</div>
+              </div>
+              <div class="row mr-1 ml-1">
+                <div class="col-12" *ngFor="let transaction of (transactionArray ? transactionArray.slice(0,8): []); let i=index">
+                  <div class="row rows">
+                    <div class="col text-lightblue row-column">
+                      <span>
+                        <span style="margin-right: 5px;" class="bubble bg-warning" *ngIf="!transaction.transactionConfirmedInBlock"></span>
+                        <span style="margin-right: 5px;" class="bubble bg-success" *ngIf="transaction.transactionConfirmedInBlock"></span>
+                        {{ transaction.transactionType }}
+                      </span>
+                    </div>
+                    <div class="col text-white row-column text-right" *ngIf="transaction.transactionType == 'sent'">
+                      <span>
+                        - {{ transaction.transactionAmount + transaction.transactionFee | coinNotation }} {{ coinUnit }}
+                      </span>
+                    </div>
+                    <div class="col text-white row-column text-right" *ngIf="transaction.transactionType == 'received'">
+                      <span>
+                        + {{ transaction.transactionAmount + transaction.transactionFee | coinNotation }} {{ coinUnit }}
+                      </span>
+                    </div>
+                    <div class="col text-white row-column text-right" *ngIf="transaction.transactionType == 'staked'">
+                      <span>
+                        + {{ transaction.transactionAmount + transaction.transactionFee | coinNotation }} {{ coinUnit }}
+                      </span>
+                    </div>
+                    <div class="col text-white row-column text-center">
+                      <span>
+                        {{ transaction.transactionTimestamp * 1000 | date:'medium' }}
+                      </span>
+                    </div>
+                    <div class="col text-white row-column text-right">
+                      <span>
+                        <a class="link" (click)="openTransactionDetailDialog(transaction)">
+                          <i class="icon lnr lnr-arrow-right-circle"></i>
+                        </a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 mt-3 text-right">
+                  <button type="button" class="btn btn-primary text-uppercase" (click)="goToHistory()"><i class="icon lnr lnr-book mr-2"></i> History</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="!transactionArray">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="title-bottom-border text-uppercase">Latest Transactions</h3>
+              <div class="row">
+                <div class="col-12 ml-2">
+                  <h4>Looks like you haven't made any transactions yet.</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 pt-2">
+          <status-bar></status-bar>
+        </div>
+      </div>
+    </div>
+    <!-- /CONTENT -->
+  </section>
+  <!-- /CONTAINER-->
+</section>
+<!-- /GUI-->

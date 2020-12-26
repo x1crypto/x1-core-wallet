@@ -1,13 +1,8 @@
-# XDS Core Wallet
+# X1 Core Wallet
 
-This is the repository of the XDS Core Wallet, a full node staking wallet using Electron and Angular at the front-end and .NET Core with C# in the back-end.
+The X1 Core Wallet is a full node staking wallet user interface application built with Electron and Angular. It depends on [X1 Blockcore](https://github.com/x1crypto/x1-blockcore), the X1 full blockchain node, which is included as a git submudule to allow for the creation of one complete package.
 
-# Building and running the XDS Core daemon
-
-The XDS Core daemon is the backend REST service, hosting a XDS node upon which XDS Core depends.  
-The XDS Core daemon is hosted in another repository. All information on building and running the daemon can be found [here](https://github.com/block-core/blockcore-nodes).
-
-# Building and running the XDS Core user interface
+# Building and running the X1 Core Wallet
 
 ## Install NodeJS
 
@@ -18,17 +13,18 @@ Download and install the latest Long Term Support (LTS) version of NodeJS at: ht
 Clone this repository locally:
 
 ``` bash
-git clone https://github.com/xds-playgrounds/xds-core-wallet.git
+git clone https://github.com/x1crypto/x1-core-wallet.git
+git submodule update --init --recursive
 ```
 
-Navigate to the StratisCore.UI folder in a terminal:
+Navigate to the src folder in a terminal:
 ``` bash
-cd ./xds-core-wallet/StratisCore.UI
+cd ./x1-core-wallet/src
 ```
 
 ## Install dependencies with npm:
 
-From within the StratisCore.UI directory run:
+From within the src directory run:
 
 ``` bash
 npm install
@@ -38,8 +34,8 @@ npm install
 
 #### Terminal Window 1
 ``` bash
-cd ./xds-core-wallet/blockcore-nodes/XDS/src/XdsD
-dot net run
+cd ./x1-core-wallet/x1-blockcore/src/X1/X1Daemon
+dotnet run
 ```
 
 #### Terminal Window 2
@@ -56,4 +52,4 @@ This will compile the Angular code and spawn the Electron process.
 |`npm run package:windows`| On a Windows OS, builds your application and creates an app consumable in windows 32/64 bit systems |
 |`npm run package:mac`|  On a MAC OS, builds your application and generates a `.app` file of your application that can be run on Mac |
 
-**The application is optimised. Only the files of /dist folder are included in the executable. Distributable packages can be found in the Scripts/Packager/ folder**
+**The application is optimized. Only the files of /dist folder are included in the executable. Distributable packages can be found in the Scripts/Packager/ folder**

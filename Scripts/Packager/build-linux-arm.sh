@@ -5,7 +5,7 @@ os_platform=linux
 log_prefix=LINUXARM-BUILD
 build_directory=$(dirname $(dirname "$PWD"))
 release_directory="/tmp/xds/${log_prefix}"
-node_directory=$build_directory/blockcore-nodes/XDS/src/XdsD
+node_directory=$build_directory/xds-blockcore-experimental/src/Networks/Xds/Xdsd
 
 # exit if error
 set -o errexit
@@ -37,7 +37,7 @@ cd $node_directory
 sudo dotnet publish -c $configuration -r $os_platform-$arch -v m -o $build_directory/StratisCore.UI/daemon
 
 echo $log_prefix chmoding the blockcore nodes file
-sudo chmod +x $build_directory/StratisCore.UI/daemon/blockcore*
+sudo chmod +x $build_directory/StratisCore.UI/daemon/x1*
 
 # node Build
 cd $build_directory/StratisCore.UI
