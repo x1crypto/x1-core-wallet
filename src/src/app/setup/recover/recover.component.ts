@@ -118,7 +118,7 @@ export class RecoverComponent implements OnInit {
   }
 
   private recoverWallet(recoverWallet: WalletRecovery) {
-    this.apiService.recoverStratisWallet(recoverWallet)
+    this.apiService.recover_wallet(recoverWallet)
       .subscribe(
         response => {
           let body = "Your wallet has been recovered. \nYou will be redirected to the decryption page.";

@@ -107,27 +107,27 @@ export class ApiService {
   }
 
   /**
-   * Create a new Stratis wallet.
+   * Create wallet.
    */
-  createStratisWallet(data: WalletCreation): Observable<any> {
+  createWallet(data: WalletCreation): Observable<any> {
     return this.http.post(this.stratisApiUrl + '/wallet/create/', JSON.stringify(data)).pipe(
       catchError(err => this.handleHttpError(err))
     );
   }
 
   /**
-   * Recover a Stratis wallet.
+   * Recover wallet.
    */
-  recoverStratisWallet(data: WalletRecovery): Observable<any> {
+  recover_wallet(data: WalletRecovery): Observable<any> {
     return this.http.post(this.stratisApiUrl + '/wallet/recover/', JSON.stringify(data)).pipe(
       catchError(err => this.handleHttpError(err))
     );
   }
 
   /**
-   * Load a Stratis wallet
+   * Load wallet
    */
-  loadStratisWallet(data: WalletLoad): Observable<any> {
+  loadWallet(data: WalletLoad): Observable<any> {
     return this.http.post(this.stratisApiUrl + '/wallet/load/', JSON.stringify(data)).pipe(
       catchError(err => this.handleHttpError(err))
     );

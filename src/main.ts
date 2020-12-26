@@ -101,11 +101,13 @@ function createWindow() {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   if (serve) {
-    console.log("Stratis UI was started in development mode. This requires the user to be running the Stratis Full Node Daemon himself.")
+    console.log("X1 Core Wallet UI was started in development mode - you need to run the node (X1-Blockcore) yourself.")
   }
   else {
     if (sidechain && !nodaemon) {
-      startDaemon("Stratis.SidechainD");
+      console.log("Side chains are not supported.");
+            //startDaemon("sidechaind");
+            return;
     } else if (!nodaemon) {
       startDaemon("x1d")
     }

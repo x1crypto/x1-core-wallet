@@ -143,7 +143,7 @@ export class ConfirmMnemonicComponent implements OnInit {
   }
 
   private createWallet(wallet: WalletCreation) {
-    this.apiService.createStratisWallet(wallet)
+    this.apiService.createWallet(wallet)
       .subscribe(
         response => {
           this.genericModalService.openModal("Wallet Created", "Your wallet has been created.<br>Keep your secret words, password and passphrase safe!");
